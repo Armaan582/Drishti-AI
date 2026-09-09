@@ -1,0 +1,1 @@
+export default function AuthInput({ label, icon: Icon, error, ...props }) { return <label className={`auth-field ${error ? 'has-error' : ''}`}><span className="auth-label">{label}</span><span className="input-shell"><Icon size={18} /><input {...props} /></span>{error && <span className="field-error" role="alert">{error}</span>}</label> }
