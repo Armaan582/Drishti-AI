@@ -48,7 +48,7 @@ export default function LoginForm({
       </div>
       <button className="auth-submit" disabled={loading}>
         {loading ? (
-          <span className="spinner" />
+          <><span className="spinner" /> Signing in…</>
         ) : (
           <>
             Login <b>→</b>

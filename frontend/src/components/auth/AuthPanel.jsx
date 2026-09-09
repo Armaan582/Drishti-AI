@@ -40,6 +40,7 @@ export default function AuthPanel({ mode, setMode, form }) {
                 : "Create your account to begin your journey towards clearer and healthier tomorrows."}
             </span>
           </header>
+          {form.errors.form && <p className="form-error" role="alert">{form.errors.form}</p>}
           {isLogin ? (
             <LoginForm
               {...form}
