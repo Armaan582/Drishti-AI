@@ -1,4 +1,73 @@
-import { Mail, Phone, UserRound } from 'lucide-react'
-import AuthInput from './AuthInput'
-import PasswordInput from './PasswordInput'
-export default function SignupForm({ values, errors, onChange, onSubmit, loading }) { return <form onSubmit={onSubmit} noValidate><AuthInput label="FULL NAME" icon={UserRound} name="name" value={values.name} onChange={onChange} placeholder="Your full name" autoComplete="name" error={errors.name} /><AuthInput label="EMAIL ADDRESS" icon={Mail} type="email" name="email" value={values.email} onChange={onChange} placeholder="you@example.com" autoComplete="email" error={errors.email} /><AuthInput label="PHONE NUMBER · OPTIONAL" icon={Phone} type="tel" name="phone" value={values.phone} onChange={onChange} placeholder="Your phone number" autoComplete="tel" /><PasswordInput label="PASSWORD" name="password" value={values.password} onChange={onChange} placeholder="Create a password" autoComplete="new-password" error={errors.password} /><PasswordInput label="CONFIRM PASSWORD" name="confirmPassword" value={values.confirmPassword} onChange={onChange} placeholder="Confirm your password" autoComplete="new-password" error={errors.confirmPassword} /><button className="auth-submit" disabled={loading}>{loading ? <span className="spinner" /> : <>Create Account <b>→</b></>}</button></form> }
+import { Mail, Phone, UserRound } from "lucide-react";
+import AuthInput from "./AuthInput";
+import PasswordInput from "./PasswordInput";
+export default function SignupForm({
+  values,
+  errors,
+  onChange,
+  onSubmit,
+  loading,
+}) {
+  return (
+    <form onSubmit={onSubmit} noValidate>
+      <AuthInput
+        label="FULL NAME"
+        icon={UserRound}
+        name="name"
+        value={values.name}
+        onChange={onChange}
+        placeholder="Your full name"
+        autoComplete="name"
+        error={errors.name}
+      />
+      <AuthInput
+        label="EMAIL ADDRESS"
+        icon={Mail}
+        type="email"
+        name="email"
+        value={values.email}
+        onChange={onChange}
+        placeholder="you@example.com"
+        autoComplete="email"
+        error={errors.email}
+      />
+      <AuthInput
+        label="PHONE NUMBER · OPTIONAL"
+        icon={Phone}
+        type="tel"
+        name="phone"
+        value={values.phone}
+        onChange={onChange}
+        placeholder="Your phone number"
+        autoComplete="tel"
+      />
+      <PasswordInput
+        label="PASSWORD"
+        name="password"
+        value={values.password}
+        onChange={onChange}
+        placeholder="Create a password"
+        autoComplete="new-password"
+        error={errors.password}
+      />
+      <PasswordInput
+        label="CONFIRM PASSWORD"
+        name="confirmPassword"
+        value={values.confirmPassword}
+        onChange={onChange}
+        placeholder="Confirm your password"
+        autoComplete="new-password"
+        error={errors.confirmPassword}
+      />
+      <button className="auth-submit" disabled={loading}>
+        {loading ? (
+          <span className="spinner" />
+        ) : (
+          <>
+            Create Account <b>→</b>
+          </>
+        )}
+      </button>
+    </form>
+  );
+}

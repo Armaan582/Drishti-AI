@@ -1,3 +1,27 @@
-import { useState } from 'react'
-import { Eye, EyeOff, LockKeyhole } from 'lucide-react'
-export default function PasswordInput({ label, error, ...props }) { const [visible, setVisible] = useState(false); return <label className={`auth-field ${error ? 'has-error' : ''}`}><span className="auth-label">{label}</span><span className="input-shell"><LockKeyhole size={18} /><input {...props} type={visible ? 'text' : 'password'} /><button type="button" className="password-toggle" onClick={() => setVisible(!visible)} aria-label={visible ? 'Hide password' : 'Show password'}>{visible ? <EyeOff size={18} /> : <Eye size={18} />}</button></span>{error && <span className="field-error" role="alert">{error}</span>}</label> }
+import { useState } from "react";
+import { Eye, EyeOff, LockKeyhole } from "lucide-react";
+export default function PasswordInput({ label, error, ...props }) {
+  const [visible, setVisible] = useState(false);
+  return (
+    <label className={`auth-field ${error ? "has-error" : ""}`}>
+      <span className="auth-label">{label}</span>
+      <span className="input-shell">
+        <LockKeyhole size={18} />
+        <input {...props} type={visible ? "text" : "password"} />
+        <button
+          type="button"
+          className="password-toggle"
+          onClick={() => setVisible(!visible)}
+          aria-label={visible ? "Hide password" : "Show password"}
+        >
+          {visible ? <EyeOff size={18} /> : <Eye size={18} />}
+        </button>
+      </span>
+      {error && (
+        <span className="field-error" role="alert">
+          {error}
+        </span>
+      )}
+    </label>
+  );
+}
