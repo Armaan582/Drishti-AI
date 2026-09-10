@@ -615,7 +615,7 @@
   }
   .appointment-calendar,
   .appointment-list {
-    min-height: auto;
+    min-height: 0;
   }
   .appointment-details {
     grid-column: auto;

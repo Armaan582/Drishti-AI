@@ -285,7 +285,7 @@
     grid-template-columns: 1fr;
   }
   .profile-card {
-    min-height: auto;
+    min-height: 0;
   }
   .save-profile {
     margin-top: 28px;

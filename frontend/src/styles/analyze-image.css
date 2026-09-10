@@ -551,10 +551,10 @@
     grid-template-columns: 1fr;
   }
   .processing-stage {
-    min-height: auto;
+    min-height: 0;
   }
   .processing-stage p {
-    min-height: auto;
+    min-height: 0;
   }
   .example-card {
     min-height: 320px;
