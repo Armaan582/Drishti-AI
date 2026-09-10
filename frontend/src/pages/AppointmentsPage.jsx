@@ -280,11 +280,19 @@ export default function AppointmentsPage() {
     [successMessage, setSuccessMessage] = useState("");
   useEffect(() => {
     if (successMessage)
-      showToast({ type: "success", title: "Appointment created successfully", message: successMessage });
+      showToast({
+        type: "success",
+        title: "Appointment created successfully",
+        message: successMessage,
+      });
   }, [successMessage, showToast]);
   useEffect(() => {
     if (formError)
-      showToast({ type: "error", title: "Failed to create appointment", message: formError });
+      showToast({
+        type: "error",
+        title: "Failed to create appointment",
+        message: formError,
+      });
   }, [formError, showToast]);
   const rawName =
     profile?.full_name ||

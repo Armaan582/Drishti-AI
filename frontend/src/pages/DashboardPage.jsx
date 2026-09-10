@@ -57,9 +57,17 @@ export function DoctorSidebar({
   const handleLogout = async () => {
     try {
       await onLogout();
-      showToast({ type: "success", title: "Logged out successfully", message: "You have been signed out of Drishti AI." });
+      showToast({
+        type: "success",
+        title: "Logged out successfully",
+        message: "You have been signed out of Drishti AI.",
+      });
     } catch {
-      showToast({ type: "error", title: "Logout failed", message: "Please try again." });
+      showToast({
+        type: "error",
+        title: "Logout failed",
+        message: "Please try again.",
+      });
     }
   };
   const item = (entry) => {
@@ -203,14 +211,17 @@ export function DoctorHeader({ onOpenNavigation, doctorName, initials }) {
     setLoggingOut(true);
     const { error } = (await supabase?.auth.signOut()) || {};
     setLoggingOut(false);
-    if (error)
-      {
-        const message = error.message || "Unable to log out. Please try again.";
-        setLogoutError(message);
-        showToast({ type: "error", title: "Logout failed", message });
-        return;
-      }
-    showToast({ type: "success", title: "Logged out successfully", message: "You have been signed out of Drishti AI." });
+    if (error) {
+      const message = error.message || "Unable to log out. Please try again.";
+      setLogoutError(message);
+      showToast({ type: "error", title: "Logout failed", message });
+      return;
+    }
+    showToast({
+      type: "success",
+      title: "Logged out successfully",
+      message: "You have been signed out of Drishti AI.",
+    });
     navigate("/login", { replace: true });
   };
   return (

@@ -72,10 +72,18 @@ export default function LoginPage() {
         });
         if (error) {
           setErrors({ form: authErrorMessage(error) });
-          showToast({ type: "error", title: "Sign in failed", message: authErrorMessage(error) });
+          showToast({
+            type: "error",
+            title: "Sign in failed",
+            message: authErrorMessage(error),
+          });
           return;
         }
-        showToast({ type: "success", title: "Signed in successfully", message: "Welcome back to Drishti AI." });
+        showToast({
+          type: "success",
+          title: "Signed in successfully",
+          message: "Welcome back to Drishti AI.",
+        });
         navigate("/dashboard", { replace: true });
         return;
       }
@@ -91,7 +99,11 @@ export default function LoginPage() {
       });
       if (error) {
         setErrors({ form: authErrorMessage(error) });
-        showToast({ type: "error", title: "Account creation failed", message: authErrorMessage(error) });
+        showToast({
+          type: "error",
+          title: "Account creation failed",
+          message: authErrorMessage(error),
+        });
         return;
       }
       if (data.user?.identities?.length === 0) {
@@ -101,32 +113,42 @@ export default function LoginPage() {
         return;
       }
       if (data.session) {
-        const { error: profileError } = await supabase
-          .from("profiles")
-          .upsert(
-            {
-              id: data.user.id,
-              full_name: values.name.trim(),
-              email: values.email.trim(),
-              phone: values.phone.trim() || null,
-            },
-            { onConflict: "id" },
-          );
+        const { error: profileError } = await supabase.from("profiles").upsert(
+          {
+            id: data.user.id,
+            full_name: values.name.trim(),
+            email: values.email.trim(),
+            phone: values.phone.trim() || null,
+          },
+          { onConflict: "id" },
+        );
         if (profileError) {
           setErrors({
             form: "Your account was created, but the profile could not be saved. Please contact support.",
           });
-          showToast({ type: "warning", title: "Account created with a profile issue", message: "Please contact support to complete your profile." });
+          showToast({
+            type: "warning",
+            title: "Account created with a profile issue",
+            message: "Please contact support to complete your profile.",
+          });
           return;
         }
-        showToast({ type: "success", title: "Account created successfully", message: "Welcome to Drishti AI." });
+        showToast({
+          type: "success",
+          title: "Account created successfully",
+          message: "Welcome to Drishti AI.",
+        });
         navigate("/dashboard", { replace: true });
         return;
       }
       setNotice(
         "Account created. Please check your email and verify your address before signing in.",
       );
-      showToast({ type: "info", title: "Verify your email", message: "Your account is ready. Check your inbox before signing in." });
+      showToast({
+        type: "info",
+        title: "Verify your email",
+        message: "Your account is ready. Check your inbox before signing in.",
+      });
       setMode("login");
       setValues(initial);
     };
@@ -135,7 +157,11 @@ export default function LoginPage() {
         setErrors({
           form: "Unable to complete your request. Please try again.",
         });
-        showToast({ type: "error", title: "Authentication failed", message: "Unable to complete your request. Please try again." });
+        showToast({
+          type: "error",
+          title: "Authentication failed",
+          message: "Unable to complete your request. Please try again.",
+        });
       })
       .finally(() => setLoading(false));
   };

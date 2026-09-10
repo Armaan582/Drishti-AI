@@ -101,19 +101,35 @@ export default function SettingsPage() {
     .toUpperCase();
   useEffect(() => {
     if (profileMessage)
-      showToast({ type: "success", title: "Profile updated successfully", message: profileMessage });
+      showToast({
+        type: "success",
+        title: "Profile updated successfully",
+        message: profileMessage,
+      });
   }, [profileMessage, showToast]);
   useEffect(() => {
     if (profileError)
-      showToast({ type: "error", title: "Failed to update profile", message: profileError });
+      showToast({
+        type: "error",
+        title: "Failed to update profile",
+        message: profileError,
+      });
   }, [profileError, showToast]);
   useEffect(() => {
     if (passwordMessage)
-      showToast({ type: "success", title: "Password updated successfully", message: passwordMessage });
+      showToast({
+        type: "success",
+        title: "Password updated successfully",
+        message: passwordMessage,
+      });
   }, [passwordMessage, showToast]);
   useEffect(() => {
     if (passwordError)
-      showToast({ type: "error", title: "Failed to update password", message: passwordError });
+      showToast({
+        type: "error",
+        title: "Failed to update password",
+        message: passwordError,
+      });
   }, [passwordError, showToast]);
   useEffect(() => {
     setForm({
@@ -151,19 +167,17 @@ export default function SettingsPage() {
         return setProfileError(error.message);
       }
     }
-    const { error } = await supabase
-      .from("profiles")
-      .upsert(
-        {
-          id: user.id,
-          full_name: form.fullName.trim(),
-          email: form.email.trim(),
-          phone: form.phone.trim() || null,
-          specialization: form.specialization.trim() || null,
-          hospital_clinic: form.hospitalClinic.trim() || null,
-        },
-        { onConflict: "id" },
-      );
+    const { error } = await supabase.from("profiles").upsert(
+      {
+        id: user.id,
+        full_name: form.fullName.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim() || null,
+        specialization: form.specialization.trim() || null,
+        hospital_clinic: form.hospitalClinic.trim() || null,
+      },
+      { onConflict: "id" },
+    );
     setSaving(false);
     if (error) return setProfileError(error.message);
     await refreshProfile?.();

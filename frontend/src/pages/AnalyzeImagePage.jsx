@@ -62,7 +62,11 @@ export default function AnalyzeImagePage() {
     [preparing, setPreparing] = useState(false);
   useEffect(() => {
     if (error)
-      showToast({ type: "error", title: "Image upload failed", message: error });
+      showToast({
+        type: "error",
+        title: "Image upload failed",
+        message: error,
+      });
   }, [error, showToast]);
   useEffect(() => {
     if (status === "Image uploaded. Awaiting secure AI model integration.")
