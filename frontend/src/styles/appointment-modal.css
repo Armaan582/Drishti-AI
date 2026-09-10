@@ -1,0 +1,118 @@
+.appointment-modal-backdrop {
+  position: fixed;
+  z-index: 50;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(13, 35, 48, 0.34);
+}
+.appointment-modal.appointment-form {
+  position: relative;
+  box-sizing: border-box;
+  width: min(510px, 100%);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 28px;
+  color: #173657;
+  border-radius: 18px;
+  background: #fffdf8;
+  box-shadow: 0 24px 70px rgba(11, 35, 47, 0.22);
+  text-align: left;
+}
+.appointment-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  color: #173657;
+  border: 0;
+  border-radius: 9px;
+  background: #f0f6f4;
+  cursor: pointer;
+}
+.appointment-modal-icon {
+  display: block;
+  margin: 4px auto 10px;
+  color: #007257;
+}
+.appointment-form h2 {
+  margin: 0 0 20px;
+  color: #183858;
+  font:
+    800 22px Manrope,
+    sans-serif;
+  text-align: center;
+}
+.appointment-form-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+}
+.appointment-form-fields label {
+  display: grid;
+  gap: 7px;
+  color: #173657;
+  font-size: 11px;
+  font-weight: 800;
+}
+.appointment-form-fields label:nth-child(5),
+.appointment-form-fields label:nth-child(6) {
+  grid-column: 1 / -1;
+}
+.appointment-form-fields input,
+.appointment-form-fields textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+  color: #173657;
+  border: 1px solid #d5e2e9;
+  border-radius: 8px;
+  outline-color: #007257;
+  background: #fff;
+  font:
+    500 12px Manrope,
+    sans-serif;
+}
+.appointment-form-fields textarea {
+  min-height: 64px;
+  resize: vertical;
+}
+.appointment-form-error {
+  margin: 13px 0 0;
+  color: #bd3f2c;
+  font-size: 11px;
+  font-weight: 700;
+}
+.appointment-submit {
+  width: 100%;
+  min-height: 45px;
+  margin-top: 18px;
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  background: #006148;
+  box-shadow: 0 8px 16px rgba(0, 97, 72, 0.15);
+  font-weight: 800;
+  cursor: pointer;
+}
+.appointment-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+@media (max-width: 540px) {
+  .appointment-modal.appointment-form {
+    padding: 24px 18px;
+  }
+  .appointment-form-fields {
+    grid-template-columns: 1fr;
+  }
+  .appointment-form-fields label:nth-child(5),
+  .appointment-form-fields label:nth-child(6) {
+    grid-column: auto;
+  }
+}

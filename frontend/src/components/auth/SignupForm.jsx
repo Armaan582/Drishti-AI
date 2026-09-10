@@ -61,7 +61,9 @@ export default function SignupForm({
       />
       <button className="auth-submit" disabled={loading}>
         {loading ? (
-          <><span className="spinner" /> Creating account…</>
+          <>
+            <span className="spinner" /> Creating account…
+          </>
         ) : (
           <>
             Create Account <b>→</b>

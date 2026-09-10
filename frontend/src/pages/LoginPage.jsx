@@ -54,7 +54,9 @@ export default function LoginPage() {
     e.preventDefault();
     if (!validate()) return;
     if (!isSupabaseConfigured) {
-      setErrors({ form: "Authentication is not configured yet. Add the Supabase environment variables to continue." });
+      setErrors({
+        form: "Authentication is not configured yet. Add the Supabase environment variables to continue.",
+      });
       return;
     }
     setLoading(true);
@@ -62,28 +64,71 @@ export default function LoginPage() {
     setErrors({});
     const authenticate = async () => {
       if (mode === "login") {
-        const { error } = await supabase.auth.signInWithPassword({ email: values.email.trim(), password: values.password });
-        if (error) { setErrors({ form: authErrorMessage(error) }); return; }
+        const { error } = await supabase.auth.signInWithPassword({
+          email: values.email.trim(),
+          password: values.password,
+        });
+        if (error) {
+          setErrors({ form: authErrorMessage(error) });
+          return;
+        }
         navigate("/dashboard", { replace: true });
         return;
       }
       const { data, error } = await supabase.auth.signUp({
-        email: values.email.trim(), password: values.password,
-        options: { data: { full_name: values.name.trim(), phone: values.phone.trim() || null } },
+        email: values.email.trim(),
+        password: values.password,
+        options: {
+          data: {
+            full_name: values.name.trim(),
+            phone: values.phone.trim() || null,
+          },
+        },
       });
-      if (error) { setErrors({ form: authErrorMessage(error) }); return; }
-      if (data.user?.identities?.length === 0) { setErrors({ form: "An account already exists for this email address." }); return; }
+      if (error) {
+        setErrors({ form: authErrorMessage(error) });
+        return;
+      }
+      if (data.user?.identities?.length === 0) {
+        setErrors({
+          form: "An account already exists for this email address.",
+        });
+        return;
+      }
       if (data.session) {
-        const { error: profileError } = await supabase.from("profiles").upsert({ id: data.user.id, full_name: values.name.trim(), email: values.email.trim(), phone: values.phone.trim() || null }, { onConflict: "id" });
-        if (profileError) { setErrors({ form: "Your account was created, but the profile could not be saved. Please contact support." }); return; }
+        const { error: profileError } = await supabase
+          .from("profiles")
+          .upsert(
+            {
+              id: data.user.id,
+              full_name: values.name.trim(),
+              email: values.email.trim(),
+              phone: values.phone.trim() || null,
+            },
+            { onConflict: "id" },
+          );
+        if (profileError) {
+          setErrors({
+            form: "Your account was created, but the profile could not be saved. Please contact support.",
+          });
+          return;
+        }
         navigate("/dashboard", { replace: true });
         return;
       }
-      setNotice("Account created. Please check your email and verify your address before signing in.");
+      setNotice(
+        "Account created. Please check your email and verify your address before signing in.",
+      );
       setMode("login");
       setValues(initial);
     };
-    authenticate().catch(() => setErrors({ form: "Unable to complete your request. Please try again." })).finally(() => setLoading(false));
+    authenticate()
+      .catch(() =>
+        setErrors({
+          form: "Unable to complete your request. Please try again.",
+        }),
+      )
+      .finally(() => setLoading(false));
   };
   const switchMode = (next) => {
     setMode(next);

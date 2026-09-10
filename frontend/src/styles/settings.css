@@ -1,0 +1,347 @@
+.settings-page {
+  background:
+    radial-gradient(
+      circle at 43% 12%,
+      rgba(231, 244, 235, 0.35),
+      transparent 24%
+    ),
+    #f8f4ec;
+}
+.settings-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.settings-hero p {
+  margin: 0 0 8px;
+  color: #e87532;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+.settings-hero h1 {
+  margin: 0;
+  color: #0b1f42;
+  font:
+    400 clamp(35px, 3.1vw, 49px)/1 "DM Serif Display",
+    Georgia,
+    serif;
+  letter-spacing: -0.03em;
+}
+.settings-hero > div > span {
+  display: block;
+  margin-top: 8px;
+  color: #52749b;
+  font-size: 14px;
+}
+.settings-hero aside {
+  min-width: 230px;
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: #14364a;
+  border-radius: 999px;
+  background: #edf9f3;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.settings-hero aside svg {
+  color: #006247;
+}
+.settings-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.06fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+.profile-card,
+.password-card,
+.account-card {
+  padding: 20px !important;
+}
+.profile-card {
+  min-height: 645px;
+}
+.profile-card header,
+.password-card header,
+.account-card header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.profile-card header > span,
+.password-card header > span,
+.account-card header > span {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  color: #007257;
+  border-radius: 50%;
+  background: #dcf7eb;
+}
+.profile-card h2,
+.password-card h2,
+.account-card h2 {
+  margin: 0;
+  color: #0c2550;
+  font:
+    800 18px Manrope,
+    sans-serif;
+}
+.profile-card header p,
+.password-card header p,
+.account-card header p {
+  margin: 4px 0 0;
+  color: #52749b;
+  font-size: 12px;
+}
+.profile-card > label,
+.password-field {
+  display: grid;
+  gap: 7px;
+  margin-top: 16px;
+  color: #0d2b50;
+  font-size: 12px;
+  font-weight: 700;
+}
+.profile-card input,
+.password-field input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 45px;
+  padding: 0 14px;
+  color: #123254;
+  border: 1px solid #d6e2e9;
+  border-radius: 8px;
+  outline-color: #007257;
+  background: #fff;
+  font:
+    500 13px Manrope,
+    sans-serif;
+}
+.profile-card input[readonly] {
+  color: #8a9bb0;
+  background: #f5f7f8;
+}
+.profile-card input::placeholder,
+.password-field input::placeholder {
+  color: #9aaabd;
+}
+.save-profile,
+.update-password {
+  min-width: 164px;
+  min-height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 42px 0 0 auto;
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  background: #006148;
+  box-shadow: 0 8px 16px rgba(0, 97, 72, 0.13);
+  font-weight: 800;
+  cursor: pointer;
+}
+.settings-right {
+  display: grid;
+  gap: 16px;
+}
+.password-card {
+  min-height: 350px;
+}
+.password-card header {
+  margin-bottom: 23px;
+}
+.password-field {
+  margin-top: 15px;
+}
+.password-field > div {
+  position: relative;
+}
+.password-field button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45px;
+  height: 45px;
+  display: grid;
+  place-items: center;
+  color: #507196;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.update-password {
+  min-height: 44px;
+  margin-top: 19px;
+}
+.save-profile:disabled,
+.update-password:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.setting-message {
+  margin: 12px 0 -27px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.setting-message.error {
+  color: #bf3c2b;
+}
+.setting-message.success {
+  color: #007257;
+}
+.account-card {
+  min-height: 203px;
+}
+.account-card header {
+  margin-bottom: 15px;
+}
+.account-values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 18px 12px;
+  border-radius: 9px;
+  background: #ebfaf4;
+}
+.account-values article {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 0 12px;
+  color: #007257;
+}
+.account-values article + article {
+  border-left: 1px solid #cfe8df;
+}
+.account-values span {
+  color: #52749b;
+  font-size: 11px;
+}
+.account-values strong {
+  display: block;
+  margin-top: 4px;
+  color: #113557;
+  font-size: 12px;
+}
+.account-values strong.verified {
+  display: inline-block;
+  padding: 5px 9px;
+  color: #007257;
+  border-radius: 6px;
+  background: #d7f4e6;
+}
+.settings-footer {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 16px 20px;
+  border: 1px solid #d1ede2;
+  border-radius: 12px;
+  background: #ebfaf4;
+}
+.settings-footer > span {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  color: #007257;
+  border-radius: 50%;
+  background: #d7f3e6;
+}
+.settings-footer strong {
+  color: #075740;
+  font-size: 12px;
+}
+.settings-footer p {
+  margin: 4px 0 0;
+  color: #52749b;
+  font-size: 10px;
+}
+.settings-footer aside {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 22px;
+  color: #075740;
+  border-left: 1px solid #cce8de;
+  font-size: 11px;
+}
+.settings-footer aside svg {
+  color: #007257;
+}
+@media (max-width: 1050px) {
+  .settings-layout {
+    grid-template-columns: 1fr;
+  }
+  .profile-card {
+    min-height: auto;
+  }
+  .save-profile {
+    margin-top: 28px;
+  }
+}
+@media (max-width: 760px) {
+  .settings-hero aside {
+    display: none;
+  }
+  .settings-layout {
+    margin-top: 14px;
+  }
+  .profile-card,
+  .password-card,
+  .account-card {
+    padding: 16px !important;
+  }
+  .profile-card header,
+  .password-card header,
+  .account-card header {
+    align-items: flex-start;
+  }
+  .profile-card header > span,
+  .password-card header > span,
+  .account-card header > span {
+    width: 47px;
+    height: 47px;
+  }
+  .profile-card h2,
+  .password-card h2,
+  .account-card h2 {
+    font-size: 16px;
+  }
+  .save-profile,
+  .update-password {
+    width: 100%;
+    margin-top: 25px;
+  }
+  .account-values {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .account-values article + article {
+    padding-top: 12px;
+    border-top: 1px solid #cfe8df;
+    border-left: 0;
+  }
+  .settings-footer {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .settings-footer aside {
+    width: 100%;
+    margin: 3px 0 0;
+    padding: 12px 0 0;
+    border-top: 1px solid #cce8de;
+    border-left: 0;
+  }
+}

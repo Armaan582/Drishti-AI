@@ -523,9 +523,9 @@
   margin: 0 0 14px;
   padding: 10px 12px;
   color: #9a4d42;
-  border: 1px solid rgba(175, 88, 74, .3);
+  border: 1px solid rgba(175, 88, 74, 0.3);
   border-radius: 10px;
-  background: rgba(255, 240, 236, .8);
+  background: rgba(255, 240, 236, 0.8);
   font-size: 11px;
   font-weight: 700;
   line-height: 1.45;
