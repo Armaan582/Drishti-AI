@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
 import { supabase } from "../lib/supabase";
 import logo from "../assets/images/drishti-logo.png";
 import sidebarImage from "../assets/images/sidebar-image.png";
@@ -52,6 +53,15 @@ export function DoctorSidebar({
   navigate,
   activePath = "/dashboard",
 }) {
+  const { showToast } = useToast();
+  const handleLogout = async () => {
+    try {
+      await onLogout();
+      showToast({ type: "success", title: "Logged out successfully", message: "You have been signed out of Drishti AI." });
+    } catch {
+      showToast({ type: "error", title: "Logout failed", message: "Please try again." });
+    }
+  };
   const item = (entry) => {
     const Icon = entry.icon;
     return (
@@ -107,7 +117,7 @@ export function DoctorSidebar({
           </button>
           <button
             className="side-link logout"
-            onClick={onLogout}
+            onClick={handleLogout}
             disabled={loggingOut}
           >
             <LogOut size={19} />
@@ -122,6 +132,7 @@ export function DoctorSidebar({
 
 export function DoctorHeader({ onOpenNavigation, doctorName, initials }) {
   const { user } = useAuth();
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const rootRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(null),
@@ -193,9 +204,13 @@ export function DoctorHeader({ onOpenNavigation, doctorName, initials }) {
     const { error } = (await supabase?.auth.signOut()) || {};
     setLoggingOut(false);
     if (error)
-      return setLogoutError(
-        error.message || "Unable to log out. Please try again.",
-      );
+      {
+        const message = error.message || "Unable to log out. Please try again.";
+        setLogoutError(message);
+        showToast({ type: "error", title: "Logout failed", message });
+        return;
+      }
+    showToast({ type: "success", title: "Logged out successfully", message: "You have been signed out of Drishti AI." });
     navigate("/login", { replace: true });
   };
   return (
@@ -590,7 +605,9 @@ export default function DashboardPage() {
     .toUpperCase();
   const logout = async () => {
     setLoggingOut(true);
-    await supabase?.auth.signOut();
+    const { error } = (await supabase?.auth.signOut()) || {};
+    setLoggingOut(false);
+    if (error) throw error;
     navigate("/login", { replace: true });
   };
   useEffect(() => {

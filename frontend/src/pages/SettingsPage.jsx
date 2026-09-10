@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
 import { supabase } from "../lib/supabase";
 import { DoctorHeader, DoctorSidebar } from "./DashboardPage";
 import "../styles/settings.css";
@@ -59,6 +60,7 @@ function PasswordField({
 
 export default function SettingsPage() {
   const { user, profile, refreshProfile } = useAuth();
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const [drawer, setDrawer] = useState(false),
     [loggingOut, setLoggingOut] = useState(false),
@@ -97,6 +99,22 @@ export default function SettingsPage() {
     .join("")
     .slice(0, 2)
     .toUpperCase();
+  useEffect(() => {
+    if (profileMessage)
+      showToast({ type: "success", title: "Profile updated successfully", message: profileMessage });
+  }, [profileMessage, showToast]);
+  useEffect(() => {
+    if (profileError)
+      showToast({ type: "error", title: "Failed to update profile", message: profileError });
+  }, [profileError, showToast]);
+  useEffect(() => {
+    if (passwordMessage)
+      showToast({ type: "success", title: "Password updated successfully", message: passwordMessage });
+  }, [passwordMessage, showToast]);
+  useEffect(() => {
+    if (passwordError)
+      showToast({ type: "error", title: "Failed to update password", message: passwordError });
+  }, [passwordError, showToast]);
   useEffect(() => {
     setForm({
       fullName: profile?.full_name || user?.user_metadata?.full_name || "",
@@ -182,7 +200,9 @@ export default function SettingsPage() {
   };
   const logout = async () => {
     setLoggingOut(true);
-    await supabase?.auth.signOut();
+    const { error } = (await supabase?.auth.signOut()) || {};
+    setLoggingOut(false);
+    if (error) throw error;
     navigate("/login", { replace: true });
   };
   const accountType = user?.user_metadata?.role || "—";

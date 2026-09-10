@@ -134,7 +134,9 @@ export default function InsightsPage() {
   const hasRiskData = risks.normal + risks.mild + risks.high > 0;
   const logout = async () => {
     setLoggingOut(true);
-    await supabase?.auth.signOut();
+    const { error } = (await supabase?.auth.signOut()) || {};
+    setLoggingOut(false);
+    if (error) throw error;
     navigate("/login", { replace: true });
   };
   return (

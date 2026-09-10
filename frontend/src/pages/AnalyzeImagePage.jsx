@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
 import { supabase } from "../lib/supabase";
 import { DoctorHeader, DoctorSidebar } from "./DashboardPage";
 import fundusImage from "../assets/images/Fundus-image.png";
@@ -49,6 +50,7 @@ function FilePreview({ file, url, onRemove, onChange }) {
 
 export default function AnalyzeImagePage() {
   const { user, profile } = useAuth();
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const [drawer, setDrawer] = useState(false),
     [loggingOut, setLoggingOut] = useState(false),
@@ -58,6 +60,18 @@ export default function AnalyzeImagePage() {
     [error, setError] = useState(""),
     [status, setStatus] = useState("Ready for quality check"),
     [preparing, setPreparing] = useState(false);
+  useEffect(() => {
+    if (error)
+      showToast({ type: "error", title: "Image upload failed", message: error });
+  }, [error, showToast]);
+  useEffect(() => {
+    if (status === "Image uploaded. Awaiting secure AI model integration.")
+      showToast({
+        type: "success",
+        title: "Image uploaded successfully",
+        message: "Analysis is awaiting secure AI model integration.",
+      });
+  }, [status, showToast]);
   const inputRef = useRef(null),
     preparationTimerRef = useRef(null);
   const rawName =
@@ -152,7 +166,9 @@ export default function AnalyzeImagePage() {
   };
   const logout = async () => {
     setLoggingOut(true);
-    await supabase?.auth.signOut();
+    const { error } = (await supabase?.auth.signOut()) || {};
+    setLoggingOut(false);
+    if (error) throw error;
     navigate("/login", { replace: true });
   };
   const steps = [

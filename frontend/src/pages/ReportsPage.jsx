@@ -155,7 +155,9 @@ export default function ReportsPage() {
   ).length;
   const logout = async () => {
     setLoggingOut(true);
-    await supabase?.auth.signOut();
+    const { error } = (await supabase?.auth.signOut()) || {};
+    setLoggingOut(false);
+    if (error) throw error;
     navigate("/login", { replace: true });
   };
   return (

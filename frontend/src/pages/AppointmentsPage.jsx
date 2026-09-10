@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
 import { isSupabaseConfigured, supabase } from "../lib/supabase";
 import { DoctorHeader, DoctorSidebar } from "./DashboardPage";
 import "../styles/appointments.css";
@@ -253,6 +254,7 @@ function NewAppointmentModal({
 
 export default function AppointmentsPage() {
   const { user, profile } = useAuth();
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const [drawer, setDrawer] = useState(false),
     [loggingOut, setLoggingOut] = useState(false),
@@ -276,6 +278,14 @@ export default function AppointmentsPage() {
     [formError, setFormError] = useState(""),
     [savingAppointment, setSavingAppointment] = useState(false),
     [successMessage, setSuccessMessage] = useState("");
+  useEffect(() => {
+    if (successMessage)
+      showToast({ type: "success", title: "Appointment created successfully", message: successMessage });
+  }, [successMessage, showToast]);
+  useEffect(() => {
+    if (formError)
+      showToast({ type: "error", title: "Failed to create appointment", message: formError });
+  }, [formError, showToast]);
   const rawName =
     profile?.full_name ||
     user?.user_metadata?.full_name ||
@@ -457,7 +467,9 @@ export default function AppointmentsPage() {
   };
   const logout = async () => {
     setLoggingOut(true);
-    await supabase?.auth.signOut();
+    const { error } = (await supabase?.auth.signOut()) || {};
+    setLoggingOut(false);
+    if (error) throw error;
     navigate("/login", { replace: true });
   };
   return (
